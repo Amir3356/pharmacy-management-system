@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import MedicineCard from '../components/MedicineCard'
 import SearchBar from '../components/SearchBar'
+import { Button } from '../components/ui/button'
 import useMedicines from '../hooks/useMedicines'
 
 export default function Medicines() {
@@ -47,9 +48,9 @@ export default function Medicines() {
         </div>
 
         <div className="page-actions">
-          <button className="button" type="button" onClick={() => navigate('/medicines/new')}>
+          <Button type="button" onClick={() => navigate('/medicines/new')}>
             Add medicine
-          </button>
+          </Button>
         </div>
       </div>
 
