@@ -32,9 +32,7 @@ export default function Login() {
     <section className="login-shell">
       <div className="login-card">
         <div className="login-hero">
-          <p className="eyebrow">Pharmacy Admin</p>
           <h1>Pharmacy Management System</h1>
-          <p className="section-subtitle">Sign in to manage medicines, stock levels, and expiry dates.</p>
         </div>
 
         <form className="medicine-form" onSubmit={handleSubmit}>
@@ -65,7 +63,6 @@ export default function Login() {
           {error ? <div className="alert error">{error}</div> : null}
 
           <div className="form-footer">
-            <p className="form-help">Demo credentials are prefilled for beginner testing.</p>
             <button className="button" type="submit" disabled={busy}>
               {busy ? 'Signing in...' : 'Sign in'}
             </button>
