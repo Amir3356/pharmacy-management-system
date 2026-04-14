@@ -1,4 +1,8 @@
 import { useState } from 'react'
+import { Button } from './ui/button'
+import { Input } from './ui/input'
+import { Label } from './ui/label'
+import { Textarea } from './ui/textarea'
 
 const emptyForm = {
   name: '',
@@ -32,20 +36,20 @@ export default function MedicineForm({
   return (
     <form className="medicine-form" onSubmit={handleSubmit}>
       <div className="form-grid">
-        <label className="form-field">
-          <span>Name</span>
-          <input className="input" value={formData.name} onChange={updateField('name')} required />
-        </label>
+        <div className="form-field">
+          <Label htmlFor="name">Name</Label>
+          <Input id="name" value={formData.name} onChange={updateField('name')} required />
+        </div>
 
-        <label className="form-field">
-          <span>Category</span>
-          <input className="input" value={formData.category} onChange={updateField('category')} required />
-        </label>
+        <div className="form-field">
+          <Label htmlFor="category">Category</Label>
+          <Input id="category" value={formData.category} onChange={updateField('category')} required />
+        </div>
 
-        <label className="form-field">
-          <span>Price</span>
-          <input
-            className="input"
+        <div className="form-field">
+          <Label htmlFor="price">Price</Label>
+          <Input
+            id="price"
             type="number"
             step="0.01"
             min="0"
@@ -53,12 +57,12 @@ export default function MedicineForm({
             onChange={updateField('price')}
             required
           />
-        </label>
+        </div>
 
-        <label className="form-field">
-          <span>Quantity</span>
-          <input
-            className="input"
+        <div className="form-field">
+          <Label htmlFor="quantity">Quantity</Label>
+          <Input
+            id="quantity"
             type="number"
             min="0"
             step="1"
@@ -66,34 +70,34 @@ export default function MedicineForm({
             onChange={updateField('quantity')}
             required
           />
-        </label>
+        </div>
 
-        <label className="form-field">
-          <span>Expiry date</span>
-          <input className="input" type="date" value={formData.expiry_date} onChange={updateField('expiry_date')} required />
-        </label>
+        <div className="form-field">
+          <Label htmlFor="expiry-date">Expiry date</Label>
+          <Input id="expiry-date" type="date" value={formData.expiry_date} onChange={updateField('expiry_date')} required />
+        </div>
 
         <div className="form-field">
           <span className="form-help">All fields are required except description.</span>
         </div>
       </div>
 
-      <label className="form-field">
-        <span>Description</span>
-        <textarea
-          className="textarea"
+      <div className="form-field">
+        <Label htmlFor="description">Description</Label>
+        <Textarea
+          id="description"
           rows="5"
           value={formData.description}
           onChange={updateField('description')}
           placeholder="Add notes for the medicine stock"
         />
-      </label>
+      </div>
 
       <div className="form-footer">
         <p className="form-help">Keep the quantity updated so stock alerts stay accurate.</p>
-        <button className="button" type="submit" disabled={busy}>
+        <Button type="submit" disabled={busy}>
           {busy ? 'Saving...' : submitLabel}
-        </button>
+        </Button>
       </div>
     </form>
   )

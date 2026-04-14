@@ -1,4 +1,5 @@
 import useAuth from '../hooks/useAuth'
+import { Button } from './ui/button'
 
 export default function Navbar() {
   const { isAuthenticated, user, logout } = useAuth()
@@ -14,9 +15,9 @@ export default function Navbar() {
         {isAuthenticated ? (
           <>
             <div className="topbar-chip">{user?.name ?? 'Signed in'}</div>
-            <button className="button-ghost" type="button" onClick={logout}>
+            <Button variant="ghost" type="button" onClick={logout}>
               Logout
-            </button>
+            </Button>
           </>
         ) : (
           <div className="topbar-chip">React + Laravel API</div>

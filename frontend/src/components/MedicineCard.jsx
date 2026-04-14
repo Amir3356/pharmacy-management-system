@@ -1,3 +1,6 @@
+import { Button } from './ui/button'
+import { Card } from './ui/card'
+
 const currencyFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
@@ -29,7 +32,7 @@ export default function MedicineCard({ medicine, onEdit, onDelete }) {
       })
 
   return (
-    <article className="medicine-card">
+    <Card className="medicine-card">
       <header>
         <div>
           <h3>{medicine.name}</h3>
@@ -49,13 +52,13 @@ export default function MedicineCard({ medicine, onEdit, onDelete }) {
       <p className="muted">{medicine.description || 'No description provided.'}</p>
 
       <div className="inline-actions">
-        <button className="button-secondary" type="button" onClick={() => onEdit(medicine)}>
+        <Button variant="secondary" type="button" onClick={() => onEdit(medicine)}>
           Edit
-        </button>
-        <button className="button-danger" type="button" onClick={() => onDelete(medicine)}>
+        </Button>
+        <Button variant="destructive" type="button" onClick={() => onDelete(medicine)}>
           Delete
-        </button>
+        </Button>
       </div>
-    </article>
+    </Card>
   )
 }
