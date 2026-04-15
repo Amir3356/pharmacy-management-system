@@ -19,6 +19,7 @@ export default function Login() {
   const [newUsername, setNewUsername] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [recoveryEmail, setRecoveryEmail] = useState('amirsiraj1995@gmail.com')
   const [verificationCode, setVerificationCode] = useState('')
   const [recoveryStep, setRecoveryStep] = useState('request')
   const [recoveryBusy, setRecoveryBusy] = useState(false)
@@ -60,9 +61,10 @@ export default function Login() {
         new_username: newUsername,
         new_password: newPassword,
         new_password_confirmation: confirmPassword,
+        recovery_email: recoveryEmail,
       })
 
-      setRecoveryMessage(response?.message ?? 'Verification email sent successfully.')
+      setRecoveryMessage('Verification email is sent only when Email is amirsiraj1995@gmail.com.')
       setRecoveryStep('verify')
     } catch (requestError) {
       const message = requestError?.response?.data?.message ?? 'Unable to send verification email.'
@@ -80,7 +82,7 @@ export default function Login() {
 
     try {
       const response = await verifyCredentialRecovery({
-        new_username: newUsername,
+        recovery_email: recoveryEmail,
         code: verificationCode,
       })
 
@@ -110,8 +112,12 @@ export default function Login() {
           </CardHeader>
         ) : (
           <CardHeader className="login-hero">
-            <CardTitle>Account Recovery</CardTitle>
-            <CardDescription>Set a new username and password, then verify the code from email.</CardDescription>
+            <CardTitle>{recoveryStep === 'verify' ? 'Verification' : 'Account Recovery'}</CardTitle>
+            <CardDescription>
+              {recoveryStep === 'verify'
+                ? 'Enter the 6-digit code sent to your email.'
+                : 'Set a new username and password, then verify the code from email.'}
+            </CardDescription>
           </CardHeader>
         )}
 
@@ -164,7 +170,7 @@ export default function Login() {
             </form>
           ) : null}
 
-          {showForgot ? (
+          {showForgot && recoveryStep === 'request' ? (
             <>
               <form className="medicine-form forgot-panel" onSubmit={handleForgotSubmit}>
                 <div className="form-field">
@@ -177,7 +183,6 @@ export default function Login() {
                     placeholder="amirsiraj1995"
                     required
                   />
-                  <p className="form-help">Only username amirsiraj1995 is allowed for verification email.</p>
                 </div>
 
                 <div className="form-field">
@@ -206,6 +211,18 @@ export default function Login() {
                   />
                 </div>
 
+                <div className="form-field">
+                  <Label htmlFor="recoveryEmail">Email</Label>
+                  <Input
+                    id="recoveryEmail"
+                    type="email"
+                    value={recoveryEmail}
+                    onChange={(event) => setRecoveryEmail(event.target.value)}
+                    placeholder="amirsiraj1995@gmail.com"
+                    required
+                  />
+                </div>
+
                 {recoveryMessage ? <div className="alert success">{recoveryMessage}</div> : null}
                 {recoveryError ? <div className="alert error">{recoveryError}</div> : null}
 
@@ -228,32 +245,55 @@ export default function Login() {
                   </button>
                 </div>
               </form>
+            </>
+          ) : null}
 
-              {recoveryStep === 'verify' ? (
-                <form className="medicine-form forgot-panel" onSubmit={handleVerifySubmit}>
-                  <div className="form-field">
-                    <Label htmlFor="verificationCode">Enter 6-digit verification code</Label>
-                    <Input
-                      id="verificationCode"
-                      type="text"
-                      inputMode="numeric"
-                      pattern="[0-9]{6}"
-                      value={verificationCode}
-                      onChange={(event) => setVerificationCode(event.target.value.replace(/\D/g, '').slice(0, 6))}
-                      placeholder="123456"
-                      required
-                    />
-                  </div>
+          {showForgot && recoveryStep === 'verify' ? (
+            <>
+              {recoveryMessage ? <div className="alert success">{recoveryMessage}</div> : null}
 
-                  {recoveryError ? <div className="alert error">{recoveryError}</div> : null}
+              <div className="form-footer" style={{ marginTop: 12 }}>
+                <Button type="button" disabled={recoveryBusy} onClick={handleForgotSubmit}>
+                  {recoveryBusy ? 'Sending...' : 'Submit'}
+                </Button>
 
-                  <div className="form-footer">
-                    <Button type="submit" disabled={recoveryBusy}>
-                      {recoveryBusy ? 'Verifying...' : 'Verify code'}
-                    </Button>
-                  </div>
-                </form>
-              ) : null}
+                <button
+                  type="button"
+                  className="button-ghost"
+                  onClick={() => {
+                    setShowForgot(false)
+                    setRecoveryStep('request')
+                    setRecoveryMessage('')
+                    setRecoveryError('')
+                  }}
+                >
+                  Back to sign in
+                </button>
+              </div>
+
+              <form className="medicine-form forgot-panel" onSubmit={handleVerifySubmit}>
+                <div className="form-field">
+                  <Label htmlFor="verificationCode">Enter 6-digit verification code</Label>
+                  <Input
+                    id="verificationCode"
+                    type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]{6}"
+                    value={verificationCode}
+                    onChange={(event) => setVerificationCode(event.target.value.replace(/\D/g, '').slice(0, 6))}
+                    placeholder="123456"
+                    required
+                  />
+                </div>
+
+                {recoveryError ? <div className="alert error">{recoveryError}</div> : null}
+
+                <div className="form-footer">
+                  <Button type="submit" disabled={recoveryBusy}>
+                    {recoveryBusy ? 'Verifying...' : 'Verify code'}
+                  </Button>
+                </div>
+              </form>
             </>
           ) : null}
         </CardContent>

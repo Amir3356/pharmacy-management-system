@@ -11,7 +11,6 @@ use Throwable;
 
 class AuthRecoveryController extends Controller
 {
-    private const ALLOWED_RECOVERY_USERNAME = 'amirsiraj1995';
     private const ALLOWED_RECOVERY_EMAIL = 'amirsiraj1995@gmail.com';
 
     public function sendVerificationEmail(Request $request): JsonResponse
@@ -19,14 +18,14 @@ class AuthRecoveryController extends Controller
         $validated = $request->validate([
             'new_username' => ['required', 'string', 'max:100'],
             'new_password' => ['required', 'string', 'min:6', 'confirmed'],
+            'recovery_email' => ['required', 'email:rfc,dns'],
         ]);
 
-        $username = strtolower(trim($validated['new_username']));
-        $email = self::ALLOWED_RECOVERY_EMAIL;
+        $email = strtolower(trim($validated['recovery_email']));
 
-        if ($username !== self::ALLOWED_RECOVERY_USERNAME) {
+        if ($email !== self::ALLOWED_RECOVERY_EMAIL) {
             return response()->json([
-                'message' => 'Verification email is blocked for this username.',
+                'message' => 'Verification email is blocked for this email.',
             ], 403);
         }
 
@@ -62,16 +61,15 @@ class AuthRecoveryController extends Controller
     public function verifyRecoveryCode(Request $request): JsonResponse
     {
         $validated = $request->validate([
-            'new_username' => ['required', 'string', 'max:100'],
+            'recovery_email' => ['required', 'email:rfc,dns'],
             'code' => ['required', 'digits:6'],
         ]);
 
-        $username = strtolower(trim($validated['new_username']));
-        $email = self::ALLOWED_RECOVERY_EMAIL;
+        $email = strtolower(trim($validated['recovery_email']));
 
-        if ($username !== self::ALLOWED_RECOVERY_USERNAME) {
+        if ($email !== self::ALLOWED_RECOVERY_EMAIL) {
             return response()->json([
-                'message' => 'Verification is blocked for this username.',
+                'message' => 'Verification is blocked for this email.',
             ], 403);
         }
 
