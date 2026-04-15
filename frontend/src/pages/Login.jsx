@@ -103,57 +103,66 @@ export default function Login() {
   return (
     <section className="login-shell">
       <Card className="login-card w-full max-w-xl">
-        <CardHeader className="login-hero">
-          <CardTitle>Pharmacy Management System</CardTitle>
-          <CardDescription>Sign in to access your inventory dashboard.</CardDescription>
-        </CardHeader>
+        {!showForgot ? (
+          <CardHeader className="login-hero">
+            <CardTitle>Pharmacy Management System</CardTitle>
+            <CardDescription>Sign in to access your inventory dashboard.</CardDescription>
+          </CardHeader>
+        ) : (
+          <CardHeader className="login-hero">
+            <CardTitle>Account Recovery</CardTitle>
+            <CardDescription>Set a new username and password, then verify the code from email.</CardDescription>
+          </CardHeader>
+        )}
 
         <CardContent>
-          <form className="medicine-form" onSubmit={handleSubmit}>
-            <div className="form-field">
-              <Label htmlFor="username">Username</Label>
-              <Input
-                id="username"
-                type="text"
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
-                placeholder="admin"
-                required
-              />
-            </div>
+          {!showForgot ? (
+            <form className="medicine-form" onSubmit={handleSubmit}>
+              <div className="form-field">
+                <Label htmlFor="username">Username</Label>
+                <Input
+                  id="username"
+                  type="text"
+                  value={username}
+                  onChange={(event) => setUsername(event.target.value)}
+                  placeholder="admin"
+                  required
+                />
+              </div>
 
-            <div className="form-field">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                placeholder="admin123"
-                required
-              />
-            </div>
+              <div className="form-field">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  placeholder="admin123"
+                  required
+                />
+              </div>
 
-            {error ? <div className="alert error">{error}</div> : null}
+              {error ? <div className="alert error">{error}</div> : null}
 
-            <div className="form-footer">
-              <Button type="submit" disabled={busy}>
-                {busy ? 'Signing in...' : 'Sign in'}
-              </Button>
+              <div className="form-footer">
+                <Button type="submit" disabled={busy}>
+                  {busy ? 'Signing in...' : 'Sign in'}
+                </Button>
 
-              <button
-                type="button"
-                className="button-ghost"
-                onClick={() => {
-                  setShowForgot((current) => !current)
-                  setRecoveryMessage('')
-                  setRecoveryError('')
-                }}
-              >
-                {showForgot ? 'Hide recovery' : 'Forgot username and password?'}
-              </button>
-            </div>
-          </form>
+                <button
+                  type="button"
+                  className="button-ghost"
+                  onClick={() => {
+                    setShowForgot(true)
+                    setRecoveryMessage('')
+                    setRecoveryError('')
+                  }}
+                >
+                  Forgot username and password?
+                </button>
+              </div>
+            </form>
+          ) : null}
 
           {showForgot ? (
             <>
@@ -204,6 +213,19 @@ export default function Login() {
                   <Button type="submit" disabled={recoveryBusy}>
                     {recoveryBusy ? 'Sending...' : 'Submit'}
                   </Button>
+
+                  <button
+                    type="button"
+                    className="button-ghost"
+                    onClick={() => {
+                      setShowForgot(false)
+                      setRecoveryStep('request')
+                      setRecoveryMessage('')
+                      setRecoveryError('')
+                    }}
+                  >
+                    Back to sign in
+                  </button>
                 </div>
               </form>
 
