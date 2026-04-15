@@ -8,16 +8,18 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('medicines', function (Blueprint $table): void {
-            $table->id();
-            $table->string('name');
-            $table->string('category');
-            $table->decimal('price', 10, 2);
-            $table->unsignedInteger('quantity')->default(0);
-            $table->date('expiry_date');
-            $table->text('description')->nullable();
-            $table->timestamps();
-        });
+        if (! Schema::hasTable('medicines')) {
+            Schema::create('medicines', function (Blueprint $table): void {
+                $table->id();
+                $table->string('name');
+                $table->string('category');
+                $table->decimal('price', 10, 2);
+                $table->unsignedInteger('quantity')->default(0);
+                $table->date('expiry_date');
+                $table->text('description')->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     public function down(): void
