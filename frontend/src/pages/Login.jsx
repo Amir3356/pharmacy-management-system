@@ -181,7 +181,7 @@ export default function Login() {
                 </div>
 
                 <div className="form-field">
-                  <Label htmlFor="newPassword">New Password</Label>
+                  <Label htmlFor="newPassword">Password</Label>
                   <Input
                     id="newPassword"
                     type="password"
