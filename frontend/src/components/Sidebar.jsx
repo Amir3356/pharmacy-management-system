@@ -1,5 +1,4 @@
 import { NavLink } from 'react-router-dom'
-import useAuth from '../hooks/useAuth'
 
 const links = [
   {
@@ -20,17 +19,8 @@ const links = [
 ]
 
 export default function Sidebar() {
-  const { user } = useAuth()
-
   return (
     <aside className="sidebar">
-      <div className="sidebar-card">
-        <p className="eyebrow">Workspace</p>
-        <p className="section-title" style={{ fontSize: '1.15rem' }}>Beginner CRUD flow</p>
-        <p className="muted" style={{ marginTop: 8 }}>{user?.email ?? 'admin@pharmacy.com'}</p>
-        <p className="muted" style={{ marginTop: 8 }}>Use the links below to manage your pharmacy inventory.</p>
-      </div>
-
       <nav className="sidebar-links" aria-label="Main navigation">
         {links.map((link) => (
           <NavLink
