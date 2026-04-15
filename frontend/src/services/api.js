@@ -39,3 +39,9 @@ export async function deleteMedicine(id) {
 
   return response.data
 }
+
+export async function requestCredentialRecovery(email) {
+  const response = await api.post('/auth/forgot-credentials', { email })
+
+  return response.data
+}

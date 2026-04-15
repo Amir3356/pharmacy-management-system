@@ -503,6 +503,12 @@ button {
   margin-bottom: 22px;
 }
 
+.forgot-panel {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
 .login-hero h1 {
   margin: 0 0 8px;
   font-size: clamp(2rem, 4vw, 3rem);
