@@ -503,6 +503,15 @@ button {
   margin-bottom: 22px;
 }
 
+.login-hero-center {
+  text-align: center;
+}
+
+.recovery-actions {
+  margin-top: 12px;
+  justify-content: center;
+}
+
 .forgot-panel {
   margin-top: 18px;
   padding-top: 16px;

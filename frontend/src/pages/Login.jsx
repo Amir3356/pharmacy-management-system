@@ -111,7 +111,7 @@ export default function Login() {
             <CardDescription>Sign in to access your inventory dashboard.</CardDescription>
           </CardHeader>
         ) : (
-          <CardHeader className="login-hero">
+          <CardHeader className={`login-hero ${recoveryStep === 'verify' ? 'login-hero-center' : ''}`}>
             <CardTitle>{recoveryStep === 'verify' ? 'Verification' : 'Account Recovery'}</CardTitle>
             <CardDescription>
               {recoveryStep === 'verify'
@@ -252,25 +252,6 @@ export default function Login() {
             <>
               {recoveryMessage ? <div className="alert success">{recoveryMessage}</div> : null}
 
-              <div className="form-footer" style={{ marginTop: 12 }}>
-                <Button type="button" disabled={recoveryBusy} onClick={handleForgotSubmit}>
-                  {recoveryBusy ? 'Sending...' : 'Submit'}
-                </Button>
-
-                <button
-                  type="button"
-                  className="button-ghost"
-                  onClick={() => {
-                    setShowForgot(false)
-                    setRecoveryStep('request')
-                    setRecoveryMessage('')
-                    setRecoveryError('')
-                  }}
-                >
-                  Back to sign in
-                </button>
-              </div>
-
               <form className="medicine-form forgot-panel" onSubmit={handleVerifySubmit}>
                 <div className="form-field">
                   <Label htmlFor="verificationCode">Enter 6-digit verification code</Label>
@@ -289,9 +270,26 @@ export default function Login() {
                 {recoveryError ? <div className="alert error">{recoveryError}</div> : null}
 
                 <div className="form-footer">
+                  <Button type="button" disabled={recoveryBusy} onClick={handleForgotSubmit}>
+                    {recoveryBusy ? 'Sending...' : 'Submit'}
+                  </Button>
+
                   <Button type="submit" disabled={recoveryBusy}>
                     {recoveryBusy ? 'Verifying...' : 'Verify code'}
                   </Button>
+
+                  <button
+                    type="button"
+                    className="button-ghost"
+                    onClick={() => {
+                      setShowForgot(false)
+                      setRecoveryStep('request')
+                      setRecoveryMessage('')
+                      setRecoveryError('')
+                    }}
+                  >
+                    Back to sign in
+                  </button>
                 </div>
               </form>
             </>
