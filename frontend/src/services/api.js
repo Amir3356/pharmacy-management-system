@@ -40,8 +40,14 @@ export async function deleteMedicine(id) {
   return response.data
 }
 
-export async function requestCredentialRecovery(email) {
-  const response = await api.post('/auth/forgot-credentials', { email })
+export async function requestCredentialRecovery(payload) {
+  const response = await api.post('/auth/forgot-credentials', payload)
+
+  return response.data
+}
+
+export async function verifyCredentialRecovery(payload) {
+  const response = await api.post('/auth/verify-recovery-code', payload)
 
   return response.data
 }
