@@ -21,6 +21,10 @@ const links = [
 export default function Sidebar() {
   return (
     <aside className="sidebar">
+      <div className="sidebar-heading">
+        <p className="eyebrow">Navigation</p>
+      </div>
+
       <nav className="sidebar-links" aria-label="Main navigation">
         {links.map((link) => (
           <NavLink
@@ -28,11 +32,11 @@ export default function Sidebar() {
             to={link.to}
             className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
           >
-            <span>
-              <strong style={{ display: 'block' }}>{link.label}</strong>
-              <span className="muted" style={{ fontSize: '0.9rem' }}>{link.description}</span>
+            <span className="sidebar-copy">
+              <strong className="sidebar-label">{link.label}</strong>
+              <span className="muted sidebar-description">{link.description}</span>
             </span>
-            <span aria-hidden="true">→</span>
+            <span aria-hidden="true" className="sidebar-arrow">→</span>
           </NavLink>
         ))}
       </nav>

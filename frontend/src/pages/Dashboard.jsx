@@ -20,7 +20,7 @@ export default function Dashboard() {
   const recentMedicines = medicines.slice(0, 4)
 
   return (
-    <section className="content-panel">
+    <section className="dashboard-stack">
       <div className="page-card">
         <div className="page-header">
           <div>
@@ -32,7 +32,7 @@ export default function Dashboard() {
 
         {error ? <div className="alert error">{error}</div> : null}
 
-        <div className="stats-grid" style={{ marginTop: 18 }}>
+        <div className="stats-grid dashboard-stats">
           <div className="stat-card">
             <span>Total medicines</span>
             <strong>{loading ? '...' : summary.totalMedicines}</strong>
@@ -55,13 +55,14 @@ export default function Dashboard() {
       <div className="page-card">
         <div className="page-header">
           <div>
+            <p className="eyebrow">Latest</p>
             <h2 className="section-title">Recent medicines</h2>
             <p className="section-subtitle">The newest items loaded from the API.</p>
           </div>
         </div>
 
         {recentMedicines.length === 0 && !loading ? (
-          <div className="empty-state">
+          <div className="empty-state dashboard-empty">
             <strong>No medicines yet.</strong>
             <p className="muted" style={{ marginTop: 8 }}>Add your first medicine to start tracking stock.</p>
           </div>
