@@ -3,14 +3,14 @@ import { NavLink, useLocation } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 
 const mainLinks = [
-  { to: '/dashboard', label: 'Dashboard', hint: 'Overview and health' },
-  { to: '/medicines', label: 'Medicines', hint: 'Inventory list' },
-  { to: '/medicines/new', label: 'Add Medicine', hint: 'Create new item' },
+  { to: '/dashboard', label: 'Dashboard' },
+  { to: '/medicines', label: 'Medicines' },
+  { to: '/medicines/new', label: 'Add Medicine' },
 ]
 
 const adminLinks = [
-  { to: '/admin/dashboard', label: 'Admin Dashboard', hint: 'System analytics' },
-  { to: '/admin/panel', label: 'Admin Panel', hint: 'Controls and settings' },
+  { to: '/admin/dashboard', label: 'Admin Dashboard' },
+  { to: '/admin/panel', label: 'Admin Panel' },
 ]
 
 const supportLinks = [
@@ -33,7 +33,6 @@ function NavGroup({ title, links, onNavigate }) {
             <span className="sidebar-icon" aria-hidden="true" />
             <span className="sidebar-copy">
               <strong className="sidebar-label">{link.label}</strong>
-              {link.hint ? <span className="sidebar-description">{link.hint}</span> : null}
             </span>
           </NavLink>
         ))}
