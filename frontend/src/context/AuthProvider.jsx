@@ -23,16 +23,12 @@ export default function AuthProvider({ children }) {
     }
   })
 
-  const [user, setUser] = useState(() => {
-    const savedSession = window.localStorage.getItem(AUTH_STORAGE_KEY)
-    return savedSession ? JSON.parse(savedSession) : null
-  })
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
-    if (user) {
-      window.localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user))
-    }
-  }, [user])
+    // Always start from sign-in when the app loads.
+    window.localStorage.removeItem(AUTH_STORAGE_KEY)
+  }, [])
 
   const login = async ({ username, password }) => {
     const normalizedUsername = username.trim().toLowerCase()
