@@ -270,10 +270,6 @@ export default function Login() {
                 {recoveryError ? <div className="alert error">{recoveryError}</div> : null}
 
                 <div className="form-footer">
-                  <Button type="button" disabled={recoveryBusy} onClick={handleForgotSubmit}>
-                    {recoveryBusy ? 'Sending...' : 'Submit'}
-                  </Button>
-
                   <Button type="submit" disabled={recoveryBusy}>
                     {recoveryBusy ? 'Verifying...' : 'Verify code'}
                   </Button>
