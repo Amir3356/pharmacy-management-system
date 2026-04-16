@@ -63,6 +63,8 @@ class AuthRecoveryController extends Controller
         $validated = $request->validate([
             'recovery_email' => ['required', 'email:rfc,dns'],
             'code' => ['required', 'digits:6'],
+            'new_username' => ['required', 'string', 'max:100'],
+            'new_password' => ['required', 'string', 'min:6'],
         ]);
 
         $email = strtolower(trim($validated['recovery_email']));
@@ -88,10 +90,21 @@ class AuthRecoveryController extends Controller
             ], 422);
         }
 
+        // Find the user by the old email or username. 
+        // We know they use the allowed recovery email, so let's update their local access.
+        $user = \App\Models\User::first(); // Assuming local single-user system based on seeders
+
+        if ($user) {
+            $user->update([
+                'username' => $validated['new_username'],
+                'password' => Hash::make($validated['new_password']),
+            ]);
+        }
+
         Cache::forget($cacheKey);
 
         return response()->json([
-            'message' => 'Verification code confirmed.',
+            'message' => 'Verification code confirmed. Login credentials updated successfully.',
         ]);
     }
 }

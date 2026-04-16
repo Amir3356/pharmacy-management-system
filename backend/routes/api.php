@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\AuthRecoveryController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
+Route::post('/auth/login', [AuthController::class, 'login']);
+Route::post('/auth/logout', [AuthController::class, 'logout']);
 Route::post('/auth/forgot-credentials', [AuthRecoveryController::class, 'sendVerificationEmail']);
 Route::post('/auth/verify-recovery-code', [AuthRecoveryController::class, 'verifyRecoveryCode']);
 

@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL ?? 'http://127.0.0.1:8000/api',
+  withCredentials: true,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -49,5 +50,22 @@ export async function requestCredentialRecovery(payload) {
 export async function verifyCredentialRecovery(payload) {
   const response = await api.post('/auth/verify-recovery-code', payload)
 
+  return response.data
+}
+
+export async function loginUser(payload) {
+  // Try to grab CSRF cookie if it's stateful, else standard POST
+  try {
+    await api.get('http://127.0.0.1:8000/sanctum/csrf-cookie')
+  } catch (e) {
+    // Ignore, might be stateless.
+  }
+  
+  const response = await api.post('/auth/login', payload)
+  return response.data
+}
+
+export async function logoutUser() {
+  const response = await api.post('/auth/logout')
   return response.data
 }

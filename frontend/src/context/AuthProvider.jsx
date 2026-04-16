@@ -1,72 +1,56 @@
 import { useEffect, useMemo, useState } from 'react'
 import AuthContext from './authContext'
+import { loginUser, logoutUser } from '../services/api'
 
 const AUTH_STORAGE_KEY = 'pharmacy-auth-session'
-const CREDENTIALS_STORAGE_KEY = 'pharmacy-auth-credentials'
-const DEFAULT_CREDENTIALS = {
-  username: 'admin',
-  password: 'admin123',
-}
+const USER_STORAGE_KEY = 'pharmacy-user-data'
 
 export default function AuthProvider({ children }) {
-  const [credentials, setCredentials] = useState(() => {
-    const savedCredentials = window.localStorage.getItem(CREDENTIALS_STORAGE_KEY)
-    if (!savedCredentials) {
-      return DEFAULT_CREDENTIALS
-    }
-
-    const parsedCredentials = JSON.parse(savedCredentials)
-
-    return {
-      username: parsedCredentials.username ?? parsedCredentials.email ?? DEFAULT_CREDENTIALS.username,
-      password: parsedCredentials.password ?? DEFAULT_CREDENTIALS.password,
-    }
+  const [user, setUser] = useState(() => {
+    const savedUser = window.localStorage.getItem(USER_STORAGE_KEY)
+    return savedUser ? JSON.parse(savedUser) : null
   })
 
-  const [user, setUser] = useState(null)
-
   useEffect(() => {
-    // Always start from sign-in when the app loads.
-    window.localStorage.removeItem(AUTH_STORAGE_KEY)
-  }, [])
+    // If not authenticated, ensure we don't hold bad memory.
+    if (!user) {
+      window.localStorage.removeItem(AUTH_STORAGE_KEY)
+      window.localStorage.removeItem(USER_STORAGE_KEY)
+    }
+  }, [user])
 
   const login = async ({ username, password }) => {
-    const normalizedUsername = username.trim().toLowerCase()
-    const savedUsername = credentials.username.trim().toLowerCase()
-
-    if (normalizedUsername !== savedUsername || password !== credentials.password) {
-      throw new Error('Invalid username or password.')
+    try {
+      const data = await loginUser({ username, password })
+      setUser(data.user)
+      window.localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(data.user))
+      window.localStorage.setItem(AUTH_STORAGE_KEY, 'true')
+      return data.user
+    } catch (e) {
+      throw new Error(e.response?.data?.message || 'Invalid username or password.')
     }
-
-    const nextUser = {
-      name: 'Pharmacy Admin',
-      email: `${credentials.username}@local.user`,
-    }
-
-    setUser(nextUser)
-    return nextUser
   }
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+      await logoutUser()
+    } catch (e) {
+        // ignore network error on logout
+    }
     window.localStorage.removeItem(AUTH_STORAGE_KEY)
+    window.localStorage.removeItem(USER_STORAGE_KEY)
     setUser(null)
   }
 
   const updateLoginCredentials = ({ username, password }) => {
-    const nextCredentials = {
-      username: username.trim().toLowerCase(),
-      password,
-    }
-
-    window.localStorage.setItem(CREDENTIALS_STORAGE_KEY, JSON.stringify(nextCredentials))
-    window.localStorage.removeItem(AUTH_STORAGE_KEY)
-    setCredentials(nextCredentials)
+    // Legacy support to fake it until they log in again
+    // But since they are successfully verifed, we just sign them out to force login.
     setUser(null)
   }
 
   const value = useMemo(
     () => ({ user, isAuthenticated: Boolean(user), login, logout, updateLoginCredentials }),
-    [user, credentials],
+    [user],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

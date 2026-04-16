@@ -84,6 +84,8 @@ export default function Login() {
       const response = await verifyCredentialRecovery({
         recovery_email: recoveryEmail,
         code: verificationCode,
+        new_username: newUsername,
+        new_password: newPassword,
       })
 
       updateLoginCredentials({ username: newUsername, password: newPassword })
