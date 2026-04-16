@@ -2,19 +2,19 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #f3f8f6;
-  --surface: rgba(255, 255, 255, 0.82);
-  --surface-strong: #ffffff;
-  --surface-muted: #e8f1ee;
-  --text: #31433f;
-  --text-strong: #10221e;
-  --border: rgba(20, 52, 44, 0.1);
-  --shadow: 0 20px 50px rgba(16, 34, 30, 0.1);
-  --primary: #1f7a67;
-  --primary-strong: #155b4d;
-  --primary-soft: rgba(31, 122, 103, 0.12);
-  --accent: #d97706;
-  --accent-soft: rgba(217, 119, 6, 0.12);
+  --bg: #dbe8e2;
+  --surface: rgba(207, 225, 217, 0.84);
+  --surface-strong: #c7ddd4;
+  --surface-muted: #b9d2c8;
+  --text: #20342f;
+  --text-strong: #0b1f1a;
+  --border: rgba(11, 31, 26, 0.18);
+  --shadow: 0 20px 50px rgba(9, 23, 19, 0.2);
+  --primary: #0f766e;
+  --primary-strong: #0a524c;
+  --primary-soft: rgba(15, 118, 110, 0.2);
+  --accent: #c16a24;
+  --accent-soft: rgba(193, 106, 36, 0.16);
   --danger: #b42318;
   --success: #0f766e;
   --warning: #b45309;
@@ -34,9 +34,9 @@ html {
   color-scheme: light;
   font-family: var(--font-sans);
   background:
-    radial-gradient(circle at top left, rgba(31, 122, 103, 0.18), transparent 32%),
-    radial-gradient(circle at right 20%, rgba(217, 119, 6, 0.14), transparent 24%),
-    linear-gradient(180deg, #eff7f3 0%, #f7faf9 42%, #eef4f1 100%);
+    radial-gradient(circle at top left, rgba(15, 118, 110, 0.24), transparent 36%),
+    radial-gradient(circle at right 20%, rgba(193, 106, 36, 0.2), transparent 28%),
+    linear-gradient(180deg, #d4e3dc 0%, #c9ddd5 42%, #bfd4cb 100%);
   color: var(--text);
 }
 
@@ -51,8 +51,8 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.18) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(10, 35, 29, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10, 35, 29, 0.06) 1px, transparent 1px);
   background-size: 72px 72px;
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.24), transparent 65%);
 }
@@ -93,7 +93,7 @@ button {
   justify-content: space-between;
   gap: 16px;
   padding: 26px 28px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.88), rgba(243, 248, 246, 0.72));
+  background: linear-gradient(135deg, rgba(201, 221, 211, 0.96), rgba(184, 208, 197, 0.9));
   backdrop-filter: blur(16px);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
@@ -154,7 +154,7 @@ button {
   padding: 14px;
   border-radius: var(--radius-xl);
   border: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(242, 248, 246, 0.92));
+  background: linear-gradient(180deg, rgba(194, 215, 205, 0.98), rgba(177, 201, 191, 0.95));
   box-shadow: var(--shadow);
 }
 
@@ -271,7 +271,7 @@ button {
 
 .sidebar-link:hover {
   transform: translateX(2px);
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(218, 233, 225, 0.82);
   border-color: var(--border);
 }
 
@@ -294,7 +294,7 @@ button {
   padding: 12px;
   border-radius: 14px;
   border: 1px solid rgba(16, 34, 30, 0.14);
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(211, 229, 220, 0.84);
 }
 
 .sidebar-avatar {
@@ -341,7 +341,7 @@ button {
   padding: 24px;
   border-radius: var(--radius-xl);
   border: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(236, 244, 241, 0.82));
+  background: linear-gradient(180deg, rgba(204, 224, 215, 0.94), rgba(186, 210, 200, 0.9));
   box-shadow: var(--shadow);
   overflow: hidden;
 }
@@ -405,7 +405,7 @@ button {
   padding: 16px;
   border-radius: 16px;
   border: 1px solid rgba(16, 34, 30, 0.12);
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(216, 231, 224, 0.78);
   backdrop-filter: blur(8px);
 }
 
@@ -447,7 +447,7 @@ button {
   padding: 16px;
   border-radius: 16px;
   border: 1px solid rgba(16, 34, 30, 0.1);
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(215, 230, 222, 0.8);
 }
 
 .dashboard-recent-content h3 {
@@ -467,7 +467,7 @@ button {
 }
 
 .dashboard-watchlist {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 247, 237, 0.9));
+  background: linear-gradient(180deg, rgba(205, 223, 214, 0.96), rgba(214, 203, 186, 0.9));
 }
 
 .dashboard-watch-items {
@@ -486,7 +486,7 @@ button {
   padding: 12px 14px;
   border-radius: 14px;
   border: 1px solid rgba(180, 83, 9, 0.18);
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(219, 230, 223, 0.82);
 }
 
 .dashboard-watch-items strong {
@@ -570,7 +570,7 @@ button {
 
 .button-ghost {
   color: var(--text-strong);
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(208, 225, 217, 0.8);
   border: 1px solid var(--border);
 }
 
@@ -591,7 +591,7 @@ button {
 .stat-card {
   padding: 18px;
   border-radius: var(--radius-lg);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(243, 248, 246, 0.8));
+  background: linear-gradient(180deg, rgba(210, 227, 219, 0.9), rgba(191, 214, 204, 0.86));
   border: 1px solid var(--border);
 }
 
@@ -627,7 +627,7 @@ button {
   min-height: 44px;
   border-radius: 14px;
   border: 1px solid rgba(16, 34, 30, 0.12);
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(216, 232, 224, 0.88);
   color: var(--text-strong);
   padding: 0 14px;
   outline: none;
@@ -656,7 +656,7 @@ button {
   padding: 20px;
   border-radius: var(--radius-xl);
   border: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(240, 247, 245, 0.8));
+  background: linear-gradient(180deg, rgba(206, 224, 215, 0.94), rgba(187, 210, 200, 0.9));
   box-shadow: 0 12px 28px rgba(16, 34, 30, 0.08);
 }
 
@@ -776,7 +776,7 @@ button {
 .empty-state {
   padding: 28px;
   border-radius: var(--radius-xl);
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(209, 225, 217, 0.8);
   border: 1px dashed rgba(16, 34, 30, 0.16);
   text-align: center;
 }
@@ -808,7 +808,7 @@ button {
   padding: 32px;
   border-radius: var(--radius-xl);
   border: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(245, 250, 248, 0.9));
+  background: linear-gradient(180deg, rgba(208, 226, 217, 0.96), rgba(189, 212, 202, 0.92));
   box-shadow: var(--shadow);
 }
 
@@ -881,7 +881,7 @@ button {
     padding: 0 14px;
     border-radius: 999px;
     border: 1px solid rgba(31, 122, 103, 0.24);
-    background: rgba(255, 255, 255, 0.92);
+    background: rgba(207, 225, 217, 0.94);
     color: var(--primary-strong);
     font-weight: 700;
   }
