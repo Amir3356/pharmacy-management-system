@@ -8,10 +8,6 @@ const mainLinks = [
   { to: '/medicines/new', label: 'Add Medicine' },
 ]
 
-const adminLinks = [
-  { to: '/admin/panel', label: 'Admin Panel' },
-]
-
 const supportLinks = [
   { to: '/dashboard', label: 'Help Center' },
   { to: '/dashboard', label: 'Documentation' },
@@ -75,7 +71,6 @@ export default function Sidebar() {
 
         <div className="sidebar-scroll">
           <NavGroup title="Platform" links={mainLinks} onNavigate={() => setIsOpen(false)} />
-          <NavGroup title="Administration" links={adminLinks} onNavigate={() => setIsOpen(false)} />
           <NavGroup title="Resources" links={supportLinks} onNavigate={() => setIsOpen(false)} />
         </div>
 
