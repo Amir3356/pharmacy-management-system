@@ -65,9 +65,7 @@ export default function Dashboard() {
         <div className="dashboard-surface dashboard-panel">
           <div className="page-header">
             <div>
-              <p className="eyebrow">Latest entries</p>
               <h2 className="section-title">Recent medicines</h2>
-              <p className="section-subtitle">Most recently loaded medicines from your inventory.</p>
             </div>
           </div>
 
@@ -99,9 +97,7 @@ export default function Dashboard() {
         <aside className="dashboard-surface dashboard-panel dashboard-watchlist">
           <div className="page-header">
             <div>
-              <p className="eyebrow">Watchlist</p>
               <h2 className="section-title">Low stock focus</h2>
-              <p className="section-subtitle">These items need restocking attention soon.</p>
             </div>
           </div>
 
