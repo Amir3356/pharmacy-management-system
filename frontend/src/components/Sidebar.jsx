@@ -9,7 +9,6 @@ const mainLinks = [
 ]
 
 const adminLinks = [
-  { to: '/admin/dashboard', label: 'Admin Dashboard' },
   { to: '/admin/panel', label: 'Admin Panel' },
 ]
 
