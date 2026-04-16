@@ -1,5 +1,26 @@
 import { useEffect, useState } from 'react'
-import '../styles/admin.css'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/components/ui/tabs'
+import { Badge } from '@/components/ui/badge'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({
@@ -48,92 +69,134 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="admin-dashboard">
-      <div className="admin-header">
-        <h1>Admin Dashboard</h1>
-        <p>Welcome to the Pharmacy Management System</p>
+    <div className="flex flex-col gap-8 p-6">
+      <div className="space-y-2">
+        <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
+        <p className="text-gray-500">Welcome to the Pharmacy Management System</p>
       </div>
 
-      <div className="stats-grid">
-        <div className="stat-card">
-          <div className="stat-icon medicines">💊</div>
-          <div className="stat-content">
-            <h3>Total Medicines</h3>
-            <p className="stat-number">{stats.totalMedicines}</p>
+      <Tabs defaultValue="overview" className="w-full space-y-4">
+        <TabsList>
+          <TabsTrigger value="overview">Overview</TabsTrigger>
+          <TabsTrigger value="medicines">Medicines</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="overview" className="space-y-4">
+          {/* Stats Grid */}
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Total Medicines</CardTitle>
+                <span className="text-2xl">💊</span>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{stats.totalMedicines}</div>
+                <p className="text-xs text-gray-500">Active medicines in inventory</p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Total Users</CardTitle>
+                <span className="text-2xl">👥</span>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{stats.totalUsers}</div>
+                <p className="text-xs text-gray-500">System users</p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Low Stock</CardTitle>
+                <span className="text-2xl">⚠️</span>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-yellow-600">{stats.lowStockMedicines}</div>
+                <p className="text-xs text-gray-500">Medicines below 10 units</p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Expired</CardTitle>
+                <span className="text-2xl">⛔</span>
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-red-600">{stats.expiredMedicines}</div>
+                <p className="text-xs text-gray-500">Expired medicines</p>
+              </CardContent>
+            </Card>
           </div>
-        </div>
+        </TabsContent>
 
-        <div className="stat-card">
-          <div className="stat-icon users">👥</div>
-          <div className="stat-content">
-            <h3>Total Users</h3>
-            <p className="stat-number">{stats.totalUsers}</p>
-          </div>
-        </div>
+        <TabsContent value="medicines" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Recent Medicines</CardTitle>
+              <CardDescription>
+                View the latest medicines in your inventory
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {loading ? (
+                <div className="flex items-center justify-center h-32">
+                  <p className="text-gray-500">Loading medicines...</p>
+                </div>
+              ) : medicines.length > 0 ? (
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Name</TableHead>
+                      <TableHead>Dosage</TableHead>
+                      <TableHead>Quantity</TableHead>
+                      <TableHead>Price</TableHead>
+                      <TableHead>Expiry Date</TableHead>
+                      <TableHead>Status</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {medicines.map(medicine => {
+                      const expiryDate = new Date(medicine.expiry_date)
+                      const isExpired = expiryDate < new Date()
+                      const isLowStock = medicine.quantity < 10
 
-        <div className="stat-card warning">
-          <div className="stat-icon low-stock">⚠️</div>
-          <div className="stat-content">
-            <h3>Low Stock</h3>
-            <p className="stat-number">{stats.lowStockMedicines}</p>
-          </div>
-        </div>
-
-        <div className="stat-card danger">
-          <div className="stat-icon expired">⛔</div>
-          <div className="stat-content">
-            <h3>Expired Medicines</h3>
-            <p className="stat-number">{stats.expiredMedicines}</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="admin-content">
-        <div className="section">
-          <h2>Recent Medicines</h2>
-          
-          {loading ? (
-            <p className="loading">Loading...</p>
-          ) : medicines.length > 0 ? (
-            <table className="admin-table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Dosage</th>
-                  <th>Quantity</th>
-                  <th>Price</th>
-                  <th>Expiry Date</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {medicines.map(medicine => {
-                  const expiryDate = new Date(medicine.expiry_date)
-                  const isExpired = expiryDate < new Date()
-                  const isLowStock = medicine.quantity < 10
-
-                  return (
-                    <tr key={medicine.id}>
-                      <td>{medicine.name}</td>
-                      <td>{medicine.dosage}</td>
-                      <td>{medicine.quantity}</td>
-                      <td>${medicine.price}</td>
-                      <td>{expiryDate.toLocaleDateString()}</td>
-                      <td>
-                        {isExpired && <span className="badge danger">Expired</span>}
-                        {isLowStock && !isExpired && <span className="badge warning">Low Stock</span>}
-                        {!isExpired && !isLowStock && <span className="badge success">Available</span>}
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          ) : (
-            <p className="no-data">No medicines found</p>
-          )}
-        </div>
-      </div>
+                      return (
+                        <TableRow key={medicine.id}>
+                          <TableCell className="font-medium">{medicine.name}</TableCell>
+                          <TableCell>{medicine.dosage}</TableCell>
+                          <TableCell>{medicine.quantity}</TableCell>
+                          <TableCell>${medicine.price}</TableCell>
+                          <TableCell>{expiryDate.toLocaleDateString()}</TableCell>
+                          <TableCell>
+                            {isExpired && (
+                              <Badge variant="destructive">Expired</Badge>
+                            )}
+                            {isLowStock && !isExpired && (
+                              <Badge variant="outline" className="border-yellow-500 text-yellow-600">
+                                Low Stock
+                              </Badge>
+                            )}
+                            {!isExpired && !isLowStock && (
+                              <Badge variant="outline" className="border-green-500 text-green-600">
+                                Available
+                              </Badge>
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      )
+                    })}
+                  </TableBody>
+                </Table>
+              ) : (
+                <div className="flex items-center justify-center h-32">
+                  <p className="text-gray-500">No medicines found</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   )
 }
