@@ -11,8 +11,8 @@ export default function Login() {
   const navigate = useNavigate()
   const location = useLocation()
   const { login, updateLoginCredentials } = useAuth()
-  const [username, setUsername] = useState('admin')
-  const [password, setPassword] = useState('admin123')
+  const [username, setUsername] = useState('Amir')
+  const [password, setPassword] = useState('AEHJSS36')
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
   const [showForgot, setShowForgot] = useState(false)
@@ -133,7 +133,7 @@ export default function Login() {
                   type="text"
                   value={username}
                   onChange={(event) => setUsername(event.target.value)}
-                  placeholder="admin"
+                  placeholder="Amir"
                   required
                 />
               </div>
@@ -145,7 +145,7 @@ export default function Login() {
                   type="password"
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
-                  placeholder="admin123"
+                  placeholder="AEHJSS36"
                   required
                 />
               </div>
