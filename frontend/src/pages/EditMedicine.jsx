@@ -72,9 +72,7 @@ export default function EditMedicine() {
     <section className="page-card">
       <div className="page-header">
         <div>
-          <p className="eyebrow">Update</p>
           <h2 className="section-title">Edit medicine</h2>
-          <p className="section-subtitle">Adjust the details and keep stock information current.</p>
         </div>
       </div>
 

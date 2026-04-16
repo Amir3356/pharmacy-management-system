@@ -26,9 +26,7 @@ export default function AddMedicine() {
     <section className="page-card">
       <div className="page-header">
         <div>
-          <p className="eyebrow">Create</p>
           <h2 className="section-title">Add medicine</h2>
-          <p className="section-subtitle">Register a new medicine in the inventory.</p>
         </div>
       </div>
 

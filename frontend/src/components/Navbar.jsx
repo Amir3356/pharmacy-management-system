@@ -8,7 +8,6 @@ export default function Navbar() {
     <header className="topbar">
       <div>
         <h1>Pharmacy Management System</h1>
-        <p className="muted">Simple CRUD for medicines, stock, and expiry tracking.</p>
       </div>
 
       <div className="inline-actions">
