@@ -54,13 +54,6 @@ export async function verifyCredentialRecovery(payload) {
 }
 
 export async function loginUser(payload) {
-  // Try to grab CSRF cookie if it's stateful, else standard POST
-  try {
-    await api.get('http://127.0.0.1:8000/sanctum/csrf-cookie')
-  } catch (e) {
-    // Ignore, might be stateless.
-  }
-  
   const response = await api.post('/auth/login', payload)
   return response.data
 }
