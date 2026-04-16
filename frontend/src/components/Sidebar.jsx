@@ -16,6 +16,16 @@ const links = [
     label: 'Add Medicine',
     description: 'Create a new medicine record',
   },
+  {
+    to: '/admin/dashboard',
+    label: 'Admin Dashboard',
+    description: 'View system statistics',
+  },
+  {
+    to: '/admin/panel',
+    label: 'Admin Panel',
+    description: 'Manage users and settings',
+  },
 ]
 
 export default function Sidebar() {

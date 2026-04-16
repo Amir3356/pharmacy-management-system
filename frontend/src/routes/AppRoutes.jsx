@@ -3,6 +3,8 @@ import Navbar from '../components/Navbar'
 import RequireAuth from '../components/RequireAuth'
 import Sidebar from '../components/Sidebar'
 import AddMedicine from '../pages/AddMedicine'
+import AdminDashboard from '../pages/AdminDashboard'
+import AdminPanel from '../pages/AdminPanel'
 import Dashboard from '../pages/Dashboard'
 import EditMedicine from '../pages/EditMedicine'
 import Login from '../pages/Login'
@@ -43,6 +45,8 @@ export default function AppRoutes() {
                     <Route path="/medicines" element={<Medicines />} />
                     <Route path="/medicines/new" element={<AddMedicine />} />
                     <Route path="/medicines/:id/edit" element={<EditMedicine />} />
+                    <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                    <Route path="/admin/panel" element={<AdminPanel />} />
                     <Route path="*" element={<Navigate to="/dashboard" replace />} />
                   </Routes>
                 </main>
